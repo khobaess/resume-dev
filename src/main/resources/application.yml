@@ -8,12 +8,12 @@ spring:
     name: resume-dev
     
   profiles:
-    active: ${SPRING_PROFILES_ACTIVE}
+    active: ${SPRING_PROFILES_ACTIVE:dev}
     
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:postgres}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 20
@@ -58,9 +58,9 @@ app:
     #prod-url: ${PROD_URL:https://api.achievements.vk.com}
     
   vk:
-    app-id: ${VK_APP_ID}
-    secret-key: ${VK_SECRET_KEY}
-    service-token: ${VK_SERVICE_TOKEN}
+    app-id: ${VK_APP_ID:53924188}
+    secret-key: ${VK_SECRET_KEY:iV3DLqsVrNxFjsH0s1Ne}
+    service-token: ${VK_SERVICE_TOKEN:e834fb0ae834fb0ae834fb0ac7eb022a56ee834e834fb0a804c2965756c2d2a29de8d1f}
 
 management:
   endpoints:
