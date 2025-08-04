@@ -54,7 +54,7 @@ public class VkAuthController {
         log.info("Getting user by VK ID: {}", vkId);
 
         try {
-            UserDto user = userService.findByVkId(vkId);
+            UserDto user = userService.getUserProfile(vkId);
             return ResponseEntity.ok(user);
         } catch (Exception e) {
             log.warn("User not found for VK ID: {}", vkId);

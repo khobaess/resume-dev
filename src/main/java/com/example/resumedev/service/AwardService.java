@@ -37,7 +37,7 @@ public class AwardService {
         award.setUser(user);
         switch (awardCounter){
             case 1:
-                award.setTitle("Награда за 1 достижение");
+                award.setTitle("Награда за первое добавленное достижение");
                 break;
 
             case 10:

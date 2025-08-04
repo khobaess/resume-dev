@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AchievementDto {
+    private Long id;
 
     @NotBlank(message = "Название достижения обязательно")
     @Size(max = 200)

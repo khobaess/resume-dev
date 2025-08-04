@@ -11,6 +11,7 @@ public class AchievementMapper {
         if (achievement == null) return null;
 
         AchievementDto dto = new AchievementDto();
+        dto.setId(achievement.getId());
         dto.setTitle(achievement.getTitle());
         dto.setCategory(achievement.getCategory());
         dto.setDate(achievement.getDate());
@@ -23,6 +24,7 @@ public class AchievementMapper {
         if (dto == null) return null;
 
         Achievement achievement = new Achievement();
+        achievement.setId(dto.getId());
         achievement.setTitle(dto.getTitle());
         achievement.setCategory(dto.getCategory());
         achievement.setDate(dto.getDate());
