@@ -1,0 +1,106 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: resume-dev
+    
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+    
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+    
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        jdbc:
+          batch_size: 20
+        order_inserts: true
+        order_updates: true
+    open-in-view: false
+    
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    time-zone: Europe/Moscow
+    default-property-inclusion: non_null
+    
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+app:
+  openapi:
+    dev-url: ${DEV_URL:http://localhost:8080}
+    #prod-url: ${PROD_URL:https://api.achievements.vk.com}
+    
+  vk:
+    app-id: ${VK_APP_ID}
+    secret-key: ${VK_SECRET_KEY}
+    service-token: ${VK_SERVICE_TOKEN}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when-authorized
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+logging:
+  level:
+    com.vk.achievements: DEBUG
+    org.hibernate.SQL: DEBUG
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  jpa:
+    show-sql: false
+  datasource:
+    hikari:
+      maximum-pool-size: 50
+logging:
+  level:
+    com.vk.achievements: INFO
+    org.hibernate.SQL: WARN
