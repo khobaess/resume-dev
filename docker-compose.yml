@@ -27,9 +27,9 @@ services:
       SPRING_PROFILES_ACTIVE: prod
       DB_HOST: db
       DB_PORT: 5432
-      DB_NAME: ${DB_NAME:-postgres}
-      DB_USERNAME: ${DB_USERNAME:-postgres}
-      DB_PASSWORD: ${DB_PASSWORD:-postgres}
+      DB_NAME: ${DB_NAME}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
       VK_APP_ID: ${VK_APP_ID}
       VK_SECRET_KEY: ${VK_SECRET_KEY}
       VK_SERVICE_TOKEN: ${VK_SERVICE_TOKEN}

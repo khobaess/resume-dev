@@ -20,6 +20,16 @@ configurations {
     }
 }
 
+tasks.named("updateDaemonJvm") {
+    languageVersion = JavaLanguageVersion.of(17)
+}
+
+if (project.hasProperty('updateDaemonJvm')) {
+    updateDaemonJvm {
+        toolchainPlatforms = []
+    }
+}
+
 repositories {
     mavenCentral()
 }
