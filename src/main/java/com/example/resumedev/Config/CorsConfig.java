@@ -16,7 +16,6 @@ public class CorsConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        // Разрешаем динамические домены ВК
         config.setAllowedOriginPatterns(Arrays.asList(
                 "https://stage-app53924188-*.pages.vk-apps.com",
                 "https://vk.com",
@@ -25,7 +24,7 @@ public class CorsConfig {
 
         config.setAllowedMethods(List.of("GET", "POST", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(true); // если используете куки или авторизацию
+        config.setAllowCredentials(true);
         config.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
