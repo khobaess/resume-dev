@@ -1,6 +1,7 @@
 package com.example.resumedev.service;
 
 import com.example.resumedev.dto.UserDto;
+import com.example.resumedev.exception.VkConnectionException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -48,18 +49,18 @@ public class VkApiService {
                     .block();
 
             if (root == null) {
-                throw new RuntimeException("Empty response from VK API");
+                throw new VkConnectionException("Empty response from VK API");
             }
 
             if (root.has("error")) {
                 JsonNode error = root.get("error");
                 String errorMsg = error.get("error_msg").asText();
-                throw new RuntimeException("VK API error: " + errorMsg);
+                throw new VkConnectionException("VK API error: " + errorMsg);
             }
 
             JsonNode responseArray = root.get("response");
             if (responseArray == null || !responseArray.isArray() || responseArray.isEmpty()) {
-                throw new RuntimeException("User not found or empty response from VK");
+                throw new VkConnectionException("User not found or empty response from VK");
             }
 
             JsonNode userNode = responseArray.get(0);
@@ -67,10 +68,10 @@ public class VkApiService {
 
         } catch (WebClientResponseException e) {
             log.error("HTTP error calling VK API: {}, body: {}", e.getStatusCode(), e.getResponseBodyAsString());
-            throw new RuntimeException("VK API call failed", e);
+            throw new VkConnectionException("VK API call failed", e);
         } catch (Exception e) {
             log.error("Error calling VK API", e);
-            throw new RuntimeException("VK API call failed", e);
+            throw new VkConnectionException("VK API call failed", e);
         }
     }
 

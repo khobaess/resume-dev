@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto {
-    private Long vkId;
+    private Long id;
 
     @NotBlank(message = "Имя обязательно")
     @Size(max = 100)

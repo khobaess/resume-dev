@@ -32,7 +32,7 @@ public class AwardService {
 
     public Award getAward(User user){
 
-        int awardCounter = achievementRepository.countAchievementsByUserId(user.getVkId());
+        int awardCounter = achievementRepository.countAchievementsByUserId(user.getId());
         Award award = new Award();
         award.setUser(user);
         switch (awardCounter){

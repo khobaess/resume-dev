@@ -11,7 +11,7 @@ public class UserMapper {
         if (user == null) return null;
 
         UserDto dto = new UserDto();
-        dto.setVkId(user.getVkId());
+        dto.setId(user.getId());
         dto.setFirstName(user.getFirstName());
         dto.setLevel(user.getLevel());
 

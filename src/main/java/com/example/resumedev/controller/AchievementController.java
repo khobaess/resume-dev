@@ -25,20 +25,19 @@ import org.springframework.web.bind.annotation.*;
 public class AchievementController {
     private final AchievementService achievementService;
 
-
-
     @GetMapping
     @Operation(summary = "Получить достижения пользователя", description = "Возвращает список достижений с фильтрацией")
     public ResponseEntity<Page<AchievementDto>> getAchievements(
             @Parameter(description = "Айди пользователя") @RequestParam(required = false) Long userId,
             @Parameter(description = "Категория") @RequestParam(required = false) String category,
+            @Parameter(description = "Поиск по слову") @RequestParam(required = false) String description,
             @Parameter(description = "Номер страницы") @RequestParam(defaultValue = "0") int page,
             @Parameter(description = "Размер страницы") @RequestParam(defaultValue = "10") int size){
 
         log.info("Getting achievements for user: {}, category: {}", userId, category);
 
         Pageable pageable = PageRequest.of(page, size);
-        Page<AchievementDto> achievements = achievementService.getUserAchievements(userId, category, pageable);
+        Page<AchievementDto> achievements = achievementService.getUserAchievements(userId, category, description, pageable);
         return ResponseEntity.ok(achievements);
     }
 

@@ -14,11 +14,7 @@ import java.time.LocalDate;
 
 @Getter
 @Entity
-@Table(name = "achievements", indexes = {
-        @Index(name = "idx_achievements_user_id", columnList = "user_id"),
-        @Index(name = "idx_achievements_category", columnList = "category"),
-        @Index(name = "idx_achievements_date", columnList = "date"),
-})
+@Table(name = "achievements")
 @Data
 @EqualsAndHashCode(callSuper = false)
 @EntityListeners(AuditingEntityListener.class)
@@ -26,6 +22,7 @@ public class Achievement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter
+    @Column(name = "id")
     private Long id;
 
     @NotBlank(message = "Название достижения обязательно")

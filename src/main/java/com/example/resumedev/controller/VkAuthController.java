@@ -27,7 +27,7 @@ public class VkAuthController {
     @Operation(summary = "Создать/обновить пользователя из VK", description = "Создает или обновляет пользователя на основе VK ID")
     public ResponseEntity<UserDto> createOrUpdateVkUser(@RequestBody UserDto userDto) {
         try {
-            Long vkId = userDto.getVkId();
+            Long vkId = userDto.getId();
 
             if (!vkApiService.isValidVkUser(vkId)) {
                 return ResponseEntity.badRequest().build();

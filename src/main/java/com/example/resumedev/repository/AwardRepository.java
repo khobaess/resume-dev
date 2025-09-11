@@ -11,10 +11,14 @@ import java.util.List;
 @Repository
 public interface AwardRepository extends JpaRepository<Award, Long> {
 
-    @Query("SELECT COUNT(a) FROM Award a WHERE a.user.vkId = :userId")
+    @Query("SELECT COUNT(a) FROM Award a WHERE a.user.id = :userId")
     Long countAwardsByUserId(@Param("userId") Long userId);
 
-    @Query("SELECT a FROM Award a WHERE a.user.vkId = :userId")
+    @Query("SELECT a FROM Award a WHERE a.user.id = :userId")
     List<Award> getByUserId(@Param("userId") Long userId);
+
+    void deleteByTitleAndUserId(String title, @Param("VkId") Long userId);
+
+    List<Award> id(Long id);
 
 }

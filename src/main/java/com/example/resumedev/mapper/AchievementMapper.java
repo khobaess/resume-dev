@@ -2,6 +2,7 @@ package com.example.resumedev.mapper;
 
 import com.example.resumedev.dto.AchievementDto;
 import com.example.resumedev.model.Achievement;
+import com.example.resumedev.model.User;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,12 +25,10 @@ public class AchievementMapper {
         if (dto == null) return null;
 
         Achievement achievement = new Achievement();
-        achievement.setId(dto.getId());
         achievement.setTitle(dto.getTitle());
         achievement.setCategory(dto.getCategory());
         achievement.setDate(dto.getDate());
         achievement.setDescription(dto.getDescription());
-        dto.setUser_id(dto.getUser_id());
 
         return achievement;
     }

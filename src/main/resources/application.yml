@@ -60,7 +60,7 @@ app:
   vk:
     app-id: ${VK_APP_ID:53924188}
     secret-key: ${VK_SECRET_KEY:iV3DLqsVrNxFjsH0s1Ne}
-    service-token: ${VK_SERVICE_TOKEN:e834fb0ae834fb0ae834fb0ac7eb022a56ee834e834fb0a804c2965756c2d2a29de8d1f}
+    service-token: ${VK_SERVICE_TOKEN:5d6b2e6b5d6b2e6b5d6b2e6bfd5e5dff3755d6b5d6b2e6b35aa5ccc190b0002f9bf8fd6}
 
 management:
   endpoints:

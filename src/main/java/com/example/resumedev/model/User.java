@@ -18,8 +18,8 @@ import java.util.List;
 public class User {
     @Getter
     @Id
-    @Column(unique = true, nullable = false)
-    private Long vkId;
+    @Column(name = "id", unique = true, nullable = false)
+    private Long id;
 
     @Getter
     @Setter
@@ -44,7 +44,7 @@ public class User {
     @Override
     public String toString() {
         return "UserDto{" +
-                "id=" + vkId +
+                "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';

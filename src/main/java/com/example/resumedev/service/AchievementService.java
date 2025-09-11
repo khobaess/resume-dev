@@ -17,6 +17,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -32,17 +34,18 @@ public class AchievementService {
 
     private final AwardService awardService;
 
-    private final UserService userService;
-
     @Transactional(readOnly = true)
-    public Page<AchievementDto> getUserAchievements(Long userId, String category, Pageable pageable) {
+    public Page<AchievementDto> getUserAchievements(Long userId, String category, String description, Pageable pageable) {
         log.debug("Getting achievements for user ID: {}, category: {}", userId, category);
 
         Page<Achievement> achievements;
 
         if (category != null && !category.equals("all")) {
-            achievements = achievementRepository.findByUserIdAndCategoryOrderByDateDesc(
-                    userId, category, pageable);
+            if (description != null && !description.isEmpty()) {
+                achievements = achievementRepository.getAchievementByUserIdAndDescriptionOrderByDateDesc(userId, description, pageable);
+            } else {
+                achievements = achievementRepository.findByUserIdAndCategoryOrderByDateDesc(userId, category, pageable);
+            }
         } else {
             achievements = achievementRepository.findByUserIdOrderByDateDesc(userId, pageable);
         }
@@ -58,7 +61,7 @@ public class AchievementService {
         return achievementMapper.toDto(achievement);
     }
 
-    @CacheEvict(value = {"achievements", "users"}, allEntries = true)
+//    @CacheEvict(value = {"achievements", "users"}, allEntries = true)
     public AchievementDto createAchievement(Long userId, AchievementDto achievementDto) {
         log.debug("Creating achievement for user ID: {}", userId);
 
@@ -68,10 +71,7 @@ public class AchievementService {
         Achievement achievement = achievementMapper.toEntity(achievementDto);
         achievement.setUser(user);
 
-        Achievement savedAchievement = achievementRepository.save(achievement);
-
-        userService.createLevel(user);
-        userRepository.save(user);
+        achievementRepository.save(achievement);
 
         Award award = awardService.getAward(user);
         if (award != null) {
@@ -79,8 +79,8 @@ public class AchievementService {
             log.info("Award granted: {} for user ID: {}", award.getTitle(), userId);
         }
 
-        log.info("Achievement created successfully with ID: {} for user ID: {}", savedAchievement.getId(), userId);
-        return achievementMapper.toDto(savedAchievement);
+        log.info("Achievement created successfully with ID: {} for user ID: {}", achievement.getId(), userId);
+        return achievementMapper.toDto(achievement);
     }
 
     @CacheEvict(value = {"achievements", "users"}, allEntries = true)
@@ -109,12 +109,26 @@ public class AchievementService {
 
         achievementRepository.delete(achievement);
         log.info("Achievement deleted successfully with ID: {} for user ID: {}", achievementId, userId);
+
+        if (getUserAchievementsCount(achievementId) < 1)
+        { awardRepository.deleteByTitleAndUserId("Награда за первое добавленное достижение", userId);}
+        if (getUserAchievementsCount(achievementId) < 10)
+        { awardRepository.deleteByTitleAndUserId("Награда за 10 достижений", userId); }
+        awardRepository.deleteByTitleAndUserId(achievement.getTitle(), userId);
+        if (getUserAchievementsCount(achievementId) < 20)
+        { awardRepository.deleteByTitleAndUserId("Награда за 20 достижений", userId); }
+        awardRepository.deleteByTitleAndUserId(achievement.getTitle(), userId);
+        if (getUserAchievementsCount(achievementId) < 50)
+        { awardRepository.deleteByTitleAndUserId("Награда за 50 достижений", userId); }
+        awardRepository.deleteByTitleAndUserId(achievement.getTitle(), userId);
+        if (getUserAchievementsCount(achievementId) < 100)
+        { awardRepository.deleteByTitleAndUserId("Награда за 100 достижений", userId); }
+
     }
 
     @Transactional(readOnly = true)
     public int getUserAchievementsCount(Long userId) {
         return achievementRepository.countAchievementsByUserId(userId);
     }
-
 
 }

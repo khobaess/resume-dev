@@ -11,21 +11,21 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByVkId(Long vkId);
 
-    boolean existsByVkId(Long vkId);
+    @Query("select u from User u where u.id = :id")
+    Optional<User> findById( Long id);
 
-    @Query("SELECT u FROM User u LEFT JOIN FETCH u.achievements WHERE u.vkId = :id")
+    boolean existsById(Long id);
+
+    @Query("SELECT u FROM User u LEFT JOIN FETCH u.achievements WHERE u.id = :id")
     Optional<User> findByIdWithAchievements(@Param("id") Long id);
 
-    @Query("SELECT u FROM User u LEFT JOIN FETCH u.achievements WHERE u.vkId = :vkId")
-    Optional<User> findByVkIdWithAchievements(@Param("vkId") Long vkId);
 
-    @Query("SELECT u FROM User u LEFT JOIN FETCH u.awards WHERE u.vkId = :vkId")
-    Optional<User> findByVkIdWithAwards(@Param("vkId") Long vkId);
+    @Query("SELECT u FROM User u LEFT JOIN FETCH u.awards WHERE u.id = :id")
+    Optional<User> findByIdWithAwards(@Param("id") Long id);
 
-    @Query("SELECT u.level FROM User u WHERE u.vkId = :vkId")
-    Optional<Integer> findLevelByVkId(@Param("vkId") Long vkId);
+    @Query("SELECT u.level FROM User u WHERE u.id = :Id")
+    Optional<Integer> findLevelById(@Param("id") Long id);
 
 }
 
