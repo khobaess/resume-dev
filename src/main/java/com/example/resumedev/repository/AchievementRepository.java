@@ -1,6 +1,6 @@
 package com.example.resumedev.repository;
 
-import com.example.resumedev.model.Achievement;
+import com.example.resumedev.entity.Achievement;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +14,7 @@ import java.util.Optional;
 @Repository
 public interface AchievementRepository extends JpaRepository<Achievement, Long> {
 
-    Page<Achievement> findByUserIdOrderByDateDesc(@Param("userId") Long userId,
+    Page<Achievement> findByUserIdOrderByDateEndDesc(@Param("userId") Long userId,
                                                   Pageable pageable);
     
     Optional<Achievement> findByIdAndUserId(Long id, Long userId);
@@ -25,18 +25,25 @@ public interface AchievementRepository extends JpaRepository<Achievement, Long> 
 
     int countAchievementsByUserId(@Param("userId") Long userId);
 
-    Page<Achievement> findByUserIdAndCategoryOrderByDateDesc(
+    Page<Achievement> findByUserIdAndCategoryOrderByDateEndDesc(
             @Param("userId") Long userId,
             @Param("category") String category,
             Pageable pageable
     );
 
-    Page<Achievement> getAchievementByUserIdAndDescriptionOrderByDateDesc(@Param("userId") Long userId,
+    Page<Achievement> findByUserIdAndCategoryAndDescriptionContainsOrderByDateEndDesc(
+            Long userId,
+            String category,
+            String description,
+            Pageable pageable
+    );
+
+    Page<Achievement> getAchievementByUserIdAndDescriptionContainsOrderByDateEndDesc(@Param("userId") Long userId,
                                               @Param("description") String description,
                                                            Pageable pageable);
 
-    Page<Achievement> getAchievementByUserIdAndDateOrderByDateDesc(@Param("userId") Long userId,
-                                       @Param("date") Date date,
+    Page<Achievement> getAchievementByUserIdAndDateEndOrderByDateEndDesc(@Param("userId") Long userId,
+                                       @Param("dateEnd") Date date,
                                        Pageable pageable);
 
 }

@@ -1,7 +1,7 @@
 package com.example.resumedev.mapper;
 
 import com.example.resumedev.dto.UserDto;
-import com.example.resumedev.model.User;
+import com.example.resumedev.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,6 +14,8 @@ public class UserMapper {
         dto.setId(user.getId());
         dto.setFirstName(user.getFirstName());
         dto.setLevel(user.getLevel());
+        dto.setLastName(user.getLastName());
+        dto.setDescription(user.getDescription());
 
         return dto;
     }

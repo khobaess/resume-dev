@@ -1,4 +1,4 @@
-package com.example.resumedev.model;
+package com.example.resumedev.entity;
 
 
 import jakarta.persistence.*;
@@ -34,6 +34,10 @@ public class User {
     @Getter
     @Setter
     private int level;
+
+    @Getter
+    @Setter
+    private String description;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Achievement> achievements = new ArrayList<>();

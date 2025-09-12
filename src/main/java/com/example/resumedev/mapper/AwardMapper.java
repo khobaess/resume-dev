@@ -1,7 +1,7 @@
 package com.example.resumedev.mapper;
 
 import com.example.resumedev.dto.AwardDto;
-import com.example.resumedev.model.Award;
+import com.example.resumedev.entity.Award;
 import org.springframework.stereotype.Component;
 
 @Component

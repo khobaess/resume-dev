@@ -58,6 +58,8 @@ app:
     #prod-url: ${PROD_URL:https://api.achievements.vk.com}
     
   vk:
+    api-url: ${VK_API_URL:https://api.vk.com/method}
+    api-version: ${API_VERSION:5.131}
     app-id: ${VK_APP_ID:53924188}
     secret-key: ${VK_SECRET_KEY:iV3DLqsVrNxFjsH0s1Ne}
     service-token: ${VK_SERVICE_TOKEN:5d6b2e6b5d6b2e6b5d6b2e6bfd5e5dff3755d6b5d6b2e6b35aa5ccc190b0002f9bf8fd6}

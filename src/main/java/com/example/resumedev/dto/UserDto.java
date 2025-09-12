@@ -21,6 +21,8 @@ public class UserDto {
     @JsonProperty("last_name")
     private String lastName;
 
+    private String description;
+
     // Статистика
     private int achievementsCount;
     private String mostActiveCategory;

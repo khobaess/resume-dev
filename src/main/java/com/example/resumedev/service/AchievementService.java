@@ -3,9 +3,9 @@ package com.example.resumedev.service;
 import com.example.resumedev.dto.AchievementDto;
 import com.example.resumedev.exception.ResourceNotFoundException;
 import com.example.resumedev.mapper.AchievementMapper;
-import com.example.resumedev.model.Achievement;
-import com.example.resumedev.model.Award;
-import com.example.resumedev.model.User;
+import com.example.resumedev.entity.Achievement;
+import com.example.resumedev.entity.Award;
+import com.example.resumedev.entity.User;
 import com.example.resumedev.repository.AchievementRepository;
 import com.example.resumedev.repository.AwardRepository;
 import com.example.resumedev.repository.UserRepository;
@@ -16,8 +16,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +32,8 @@ public class AchievementService {
 
     private final AwardService awardService;
 
+    private final UserService userService;
+
     @Transactional(readOnly = true)
     public Page<AchievementDto> getUserAchievements(Long userId, String category, String description, Pageable pageable) {
         log.debug("Getting achievements for user ID: {}, category: {}", userId, category);
@@ -42,12 +42,18 @@ public class AchievementService {
 
         if (category != null && !category.equals("all")) {
             if (description != null && !description.isEmpty()) {
-                achievements = achievementRepository.getAchievementByUserIdAndDescriptionOrderByDateDesc(userId, description, pageable);
+                achievements = achievementRepository.findByUserIdAndCategoryAndDescriptionContainsOrderByDateEndDesc(
+                        userId, category, description, pageable);
             } else {
-                achievements = achievementRepository.findByUserIdAndCategoryOrderByDateDesc(userId, category, pageable);
+                achievements = achievementRepository.findByUserIdAndCategoryOrderByDateEndDesc(userId, category, pageable);
             }
         } else {
-            achievements = achievementRepository.findByUserIdOrderByDateDesc(userId, pageable);
+            if (description != null && !description.isEmpty()) {
+                achievements = achievementRepository.getAchievementByUserIdAndDescriptionContainsOrderByDateEndDesc(
+                        userId, description, pageable);
+            } else {
+                achievements = achievementRepository.findByUserIdOrderByDateEndDesc(userId, pageable);
+            }
         }
 
         return achievements.map(achievementMapper::toDto);
@@ -56,8 +62,10 @@ public class AchievementService {
     @Transactional(readOnly = true)
     public AchievementDto getAchievement(Long achievementId, Long userId) {
         log.debug("Getting achievement ID: {} for user ID: {}", achievementId, userId);
+
         Achievement achievement = achievementRepository.findByIdAndUserId(achievementId, userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Достижение не найдено"));
+
         return achievementMapper.toDto(achievement);
     }
 
@@ -72,6 +80,7 @@ public class AchievementService {
         achievement.setUser(user);
 
         achievementRepository.save(achievement);
+        userService.createLevel(user);
 
         Award award = awardService.getAward(user);
         if (award != null) {
@@ -92,7 +101,8 @@ public class AchievementService {
 
         achievement.setTitle(achievementDto.getTitle());
         achievement.setCategory(achievementDto.getCategory());
-        achievement.setDate(achievementDto.getDate());
+        achievement.setDateStart(achievementDto.getDateStart());
+        achievement.setDateEnd(achievementDto.getDateEnd());
         achievement.setDescription(achievementDto.getDescription());
 
         Achievement savedAchievement = achievementRepository.save(achievement);

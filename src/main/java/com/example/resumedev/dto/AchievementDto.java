@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AchievementDto {
-    private Long id;
 
     @NotBlank(message = "Название достижения обязательно")
     @Size(max = 200)
@@ -22,8 +21,12 @@ public class AchievementDto {
     @Size(max = 50)
     private String category;
 
+    @JsonProperty("date_start")
+    private LocalDate dateStart;
+
+    @JsonProperty("date_end")
     @NotNull(message = "Дата достижения обязательна")
-    private LocalDate date;
+    private LocalDate dateEnd;
 
     @NotBlank(message = "Описание обязательно")
     private String description;

@@ -1,4 +1,4 @@
-package com.example.resumedev.model;
+package com.example.resumedev.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

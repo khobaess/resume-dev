@@ -23,8 +23,11 @@ public class VkApiService {
     @Value("${app.vk.service-token}")
     private String serviceToken;
 
-    private static final String VK_API_URL = "https://api.vk.com/method/";
-    private static final String API_VERSION = "5.131";
+    @Value("${app.vk.api-url}")
+    private String VK_API_URL;
+
+    @Value("${app.vk.api-version}")
+    private String API_VERSION;
 
     public VkApiService(WebClient.Builder webClientBuilder, ObjectMapper objectMapper) {
         this.webClient = webClientBuilder

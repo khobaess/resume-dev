@@ -2,8 +2,8 @@ package com.example.resumedev.service;
 
 import com.example.resumedev.dto.AwardDto;
 import com.example.resumedev.mapper.AwardMapper;
-import com.example.resumedev.model.Award;
-import com.example.resumedev.model.User;
+import com.example.resumedev.entity.Award;
+import com.example.resumedev.entity.User;
 import com.example.resumedev.repository.AchievementRepository;
 import com.example.resumedev.repository.AwardRepository;
 import lombok.RequiredArgsConstructor;

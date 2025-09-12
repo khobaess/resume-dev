@@ -3,7 +3,8 @@ CREATE TABLE users (
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
     city VARCHAR(20),
-    level int
+    level int,
+    description TEXT
 
 );
 
@@ -11,7 +12,8 @@ CREATE TABLE achievements(
     id BIGSERIAL UNIQUE NOT NULL PRIMARY KEY,
     title VARCHAR(200) NOT NULL,
     category VARCHAR(50) NOT NULL,
-    date DATE NOT NULL,
+    date_start DATE,
+    date_end DATE NOT NULL,
     description TEXT,
     user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE
 );
@@ -20,6 +22,12 @@ CREATE TABLE awards(
     id  BIGSERIAL UNIQUE NOT NULL PRIMARY KEY,
     user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     title VARCHAR(200) NOT NULL
+);
+
+CREATE TABLE resumes(
+    id BIGSERIAL UNIQUE NOT NULL PRIMARY KEY,
+    user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    achievement_id BIGINT NOT NULL REFERENCES achievements(id) ON DELETE CASCADE
 );
 
 CREATE INDEX idx_users_vk_id ON users(id);

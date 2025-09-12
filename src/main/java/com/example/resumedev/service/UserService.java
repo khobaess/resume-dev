@@ -3,7 +3,7 @@ package com.example.resumedev.service;
 import com.example.resumedev.dto.UserDto;
 import com.example.resumedev.exception.ResourceNotFoundException;
 import com.example.resumedev.mapper.UserMapper;
-import com.example.resumedev.model.User;
+import com.example.resumedev.entity.User;
 import com.example.resumedev.repository.AchievementRepository;
 import com.example.resumedev.repository.AwardRepository;
 import com.example.resumedev.repository.UserRepository;

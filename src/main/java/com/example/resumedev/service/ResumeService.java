@@ -1,0 +1,73 @@
+package com.example.resumedev.service;
+
+import com.example.resumedev.dto.AchievementDto;
+import com.example.resumedev.dto.ResumeDto;
+import com.example.resumedev.entity.Achievement;
+import com.example.resumedev.entity.Award;
+import com.example.resumedev.entity.Resume;
+import com.example.resumedev.entity.User;
+import com.example.resumedev.exception.ResourceNotFoundException;
+import com.example.resumedev.mapper.AwardMapper;
+import com.example.resumedev.mapper.ResumeMapper;
+import com.example.resumedev.mapper.UserMapper;
+import com.example.resumedev.repository.AchievementRepository;
+import com.example.resumedev.repository.ResumeRepository;
+import com.example.resumedev.repository.UserRepository;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+@Service
+@Slf4j
+@Transactional
+@RequiredArgsConstructor
+public class ResumeService {
+
+    private final ResumeMapper resumeMapper;
+    private final ResumeRepository resumeRepository;
+    private final UserRepository userRepository;
+    private final AchievementRepository achievementRepository;
+
+
+    public ResumeDto getResume(Long id, Long userId, Long achievementId) {
+        log.debug("Creating achievement for achievement ID: {}", achievementId );
+
+        Resume resume = resumeRepository.findByIdAndUserIdAndAchievementId(id, userId, achievementId)
+                .orElseThrow(() -> new ResourceNotFoundException("Резюме не найдено"));
+
+        return resumeMapper.toDto(resume);
+    }
+
+    @Transactional
+    public ResumeDto createResume(Long userId, Long achievementId, ResumeDto achievementDto) {
+        log.debug("Creating achievement for user ID: {}", userId);
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Пользователь не найден"));
+
+        Achievement achievement = achievementRepository.findByIdAndUserId(achievementId, userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Достижение не найдено"));
+
+        Resume resume = resumeMapper.toEntity(achievementDto);
+        resume.setUser(user);
+        resume.setAchievement(achievement);
+
+        resumeRepository.save(resume);
+
+        log.info("Resume created successfully with ID: {}  for user ID: {}", resume.getId(), userId);
+        return resumeMapper.toDto(resume);
+    }
+
+    public void deleteResume(Long id, Long userId, Long achievementId) {
+        log.debug("Deleting achievement for user ID: {}", id);
+
+        Resume resume = resumeRepository.findByIdAndUserIdAndAchievementId(id, userId, achievementId)
+                .orElseThrow(() -> new ResourceNotFoundException("Достижение не найдено"));
+
+        resumeRepository.delete(resume);
+        log.info("Resume deleted successfully with ID: {} for user ID: {} for achievement ID: {}",
+                id, userId, achievementId);
+
+    }
+}

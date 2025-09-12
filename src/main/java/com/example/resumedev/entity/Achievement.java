@@ -1,4 +1,4 @@
-package com.example.resumedev.model;
+package com.example.resumedev.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -35,9 +35,12 @@ public class Achievement {
     @Setter
     private String category;
 
+    @Setter
+    private LocalDate dateStart;
+
     @NotNull(message = "Дата достижения обязательна")
     @Setter
-    private LocalDate date;
+    private LocalDate dateEnd;
 
     @NotBlank(message = "Описание обязательно")
     @Column(columnDefinition = "TEXT")
