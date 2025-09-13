@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,19 @@ public class User {
     @Setter
     private String description;
 
+    @Getter
+    @Setter
+    private LocalDate birthDate;
+
+    @Getter
+    @Setter
+    private String city;
+
+    @Getter
+    @Setter
+    private String jobTitle;
+
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Achievement> achievements = new ArrayList<>();
 
@@ -52,15 +66,24 @@ public class User {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", level=" + level +
+                ", description='" + description + '\'' +
+                ", birthDate=" + birthDate +
+                ", city='" + city + '\'' +
+                ", jobTitle='" + jobTitle + '\'' +
                 '}';
     }
 
     public User() {}
 
-    public User(String firstName, String lastName, String description) {
+    public User(String firstName, String lastName, String description,
+                LocalDate birthDate, String city, String jobTitle) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.description = description;
+        this.birthDate = birthDate;
+        this.city = city;
+        this.jobTitle = jobTitle;
     }
 
 }

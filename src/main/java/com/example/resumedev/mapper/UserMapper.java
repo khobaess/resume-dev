@@ -16,8 +16,26 @@ public class UserMapper {
         dto.setLevel(user.getLevel());
         dto.setLastName(user.getLastName());
         dto.setDescription(user.getDescription());
+        dto.setCity(user.getCity());
+        dto.setJobTitle(user.getJobTitle());
+        dto.setBirthDate(user.getBirthDate());
 
         return dto;
+    }
+
+    public User toEntity(UserDto dto) {
+        if (dto == null) return null;
+
+        User user = new User();
+        user.setId(dto.getId());
+        user.setFirstName(dto.getFirstName());
+        user.setLastName(dto.getLastName());
+        user.setDescription(dto.getDescription());
+        user.setCity(dto.getCity());
+        user.setJobTitle(dto.getJobTitle());
+        user.setBirthDate(dto.getBirthDate());
+
+        return user;
     }
 
 }

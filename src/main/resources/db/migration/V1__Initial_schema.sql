@@ -4,7 +4,9 @@ CREATE TABLE users (
     last_name VARCHAR(255) NOT NULL,
     city VARCHAR(20),
     level int,
-    description TEXT
+    description TEXT,
+    birth_date DATE,
+    job_title VARCHAR(100)
 
 );
 

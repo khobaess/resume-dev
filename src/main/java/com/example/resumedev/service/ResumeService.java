@@ -104,6 +104,15 @@ public class ResumeService {
         String userName = user.getFirstName() + " " + user.getLastName();
         sb.append(userName).append("\n\n");
 
+        sb.append(user.getBirthDate() != null ? "Дата рождения: " + formatDate(user.getBirthDate()) : "").append("\n\n");
+
+        sb.append(user.getCity() != null ? "Город: " + user.getCity() : "").append("\n\n");
+
+        sb.append(user.getJobTitle() != null ? "Желаемая должность: " + user.getJobTitle() : "").append("\n\n");
+
+        sb.append(user.getDescription() != null ? "О себе: " + user.getDescription() : "").append("\n\n");
+
+
         long totalDays = 0;
         for (Resume resume : resumes) {
             Achievement achievement = resume.getAchievement();
@@ -143,7 +152,7 @@ public class ResumeService {
                 duration = formatMonthString(months);
             }
 
-            String title = achievement.getTitle() != null ? achievement.getTitle() : "[без названия]";
+            String title = achievement.getTitle() != null ? achievement.getTitle().toUpperCase() : "[без названия]";
             String description = achievement.getDescription() != null ? achievement.getDescription() : "[без описания]";
 
             sb.append(startDate).append(" — ").append(endDate).append("\n\n");

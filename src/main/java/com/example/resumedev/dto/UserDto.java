@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto {
@@ -22,6 +24,15 @@ public class UserDto {
     private String lastName;
 
     private String description;
+
+    private String city;
+
+    @Size(max = 100)
+    @JsonProperty("job_title")
+    private String jobTitle;
+
+    @JsonProperty("birth_date")
+    private LocalDate birthDate;
 
     // Статистика
     private int achievementsCount;
