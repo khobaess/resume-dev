@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 @Entity
 @Table(name = "users", indexes = {
-        @Index(name = "idx_users_vk_id", columnList = "vkId"),
+        @Index(name = "idx_users_vk_id", columnList = "userId"),
 })
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -52,6 +52,14 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';
+    }
+
+    public User() {}
+
+    public User(String firstName, String lastName, String description) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.description = description;
     }
 
 }

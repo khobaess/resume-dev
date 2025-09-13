@@ -42,8 +42,4 @@ public interface AchievementRepository extends JpaRepository<Achievement, Long> 
                                               @Param("description") String description,
                                                            Pageable pageable);
 
-    Page<Achievement> getAchievementByUserIdAndDateEndOrderByDateEndDesc(@Param("userId") Long userId,
-                                       @Param("dateEnd") Date date,
-                                       Pageable pageable);
-
 }

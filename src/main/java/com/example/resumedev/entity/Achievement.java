@@ -50,4 +50,13 @@ public class Achievement {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    public Achievement() {};
+
+    public Achievement(String title, LocalDate dateStart, LocalDate dateEnd, String description) {
+        this.title = title;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.description = description;
+    }
 }

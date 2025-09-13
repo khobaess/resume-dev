@@ -7,7 +7,6 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AwardDto {
 
-    private Long id;
     private String title;
     private String user_id;
 }

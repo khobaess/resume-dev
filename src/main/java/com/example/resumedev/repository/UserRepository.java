@@ -12,14 +12,12 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query("select u from User u where u.id = :id")
     Optional<User> findById(Long id);
 
     boolean existsById(Long id);
 
     @Query("SELECT u FROM User u LEFT JOIN FETCH u.achievements WHERE u.id = :id")
     Optional<User> findByIdWithAchievements(@Param("id") Long id);
-
 
     @Query("SELECT u FROM User u LEFT JOIN FETCH u.awards WHERE u.id = :id")
     Optional<User> findByIdWithAwards(@Param("id") Long id);
