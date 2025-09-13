@@ -30,7 +30,6 @@ public class UserService {
     private final UserMapper userMapper;
 
     @Transactional(readOnly = true)
-    @Cacheable(value = "users", key = "#userId")
     public UserDto getUserProfile(Long userId) {
         log.debug("Getting user profile for user ID: {}", userId);
 
