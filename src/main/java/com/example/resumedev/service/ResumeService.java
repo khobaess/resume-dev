@@ -1,7 +1,6 @@
 package com.example.resumedev.service;
 
 import com.example.resumedev.dto.ResumeDto;
-import com.example.resumedev.dto.UserDto;
 import com.example.resumedev.entity.Achievement;
 import com.example.resumedev.entity.Resume;
 import com.example.resumedev.entity.User;
@@ -13,7 +12,6 @@ import com.example.resumedev.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -24,8 +22,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Locale;
 
-import static org.apache.tomcat.util.http.FastHttpDateFormat.formatDate;
-
 @Service
 @Slf4j
 @Transactional
@@ -33,10 +29,12 @@ import static org.apache.tomcat.util.http.FastHttpDateFormat.formatDate;
 public class ResumeService {
 
     private final ResumeMapper resumeMapper;
-    private final ResumeRepository resumeRepository;
-    private final UserRepository userRepository;
-    private final AchievementRepository achievementRepository;
 
+    private final ResumeRepository resumeRepository;
+
+    private final UserRepository userRepository;
+
+    private final AchievementRepository achievementRepository;
 
     public ResumeDto getResume(Long id, Long userId, Long achievementId) {
         log.debug("Creating resume for resume ID: {}", id );
@@ -57,7 +55,7 @@ public class ResumeService {
     }
 
     @Transactional
-    public ResumeDto createResume(Long userId, Long achievementId, ResumeDto achievementDto) {
+    public ResumeDto createResume(Long userId, Long achievementId, ResumeDto resumeDto) {
         log.debug("Creating achievement for user ID: {}", userId);
 
         User user = userRepository.findById(userId)
@@ -66,7 +64,7 @@ public class ResumeService {
         Achievement achievement = achievementRepository.findByIdAndUserId(achievementId, userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Достижение не найдено"));
 
-        Resume resume = resumeMapper.toEntity(achievementDto);
+        Resume resume = resumeMapper.toEntity(resumeDto);
         resume.setUser(user);
         resume.setAchievement(achievement);
 

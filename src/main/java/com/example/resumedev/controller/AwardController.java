@@ -22,7 +22,9 @@ import java.util.Optional;
 @Tag(name = "Awards", description = "API для работы с наградами и статистикой пользователя")
 @CrossOrigin(origins = "http://localhost:5173")
 public class AwardController {
+
     private final AwardService awardService;
+
     private final UserService userService;
 
     @GetMapping

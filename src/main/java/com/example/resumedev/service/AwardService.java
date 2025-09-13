@@ -19,8 +19,11 @@ import java.util.stream.Collectors;
 @Slf4j
 @Transactional
 public class AwardService {
+
     private final AwardRepository awardRepository;
+
     private final AwardMapper awardMapper;
+
     private final AchievementRepository achievementRepository;
 
     public List<AwardDto> getUserAwards(Long userId){

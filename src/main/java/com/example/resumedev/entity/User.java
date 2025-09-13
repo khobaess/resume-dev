@@ -8,9 +8,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Entity
 @Table(name = "users", indexes = {
-        @Index(name = "idx_users_vk_id", columnList = "userId"),
+        @Index(name = "idx_users_user_id", columnList = "userId"),
 })
 @Data
 @EqualsAndHashCode(callSuper = false)

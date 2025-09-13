@@ -20,15 +20,20 @@ import java.util.Optional;
 @Slf4j
 @Transactional
 public class UserService {
+
     private final UserRepository userRepository;
+
     private final AchievementRepository achievementRepository;
+
     private final AwardRepository awardRepository;
+
     private final UserMapper userMapper;
 
     @Transactional(readOnly = true)
     @Cacheable(value = "users", key = "#userId")
     public UserDto getUserProfile(Long userId) {
         log.debug("Getting user profile for user ID: {}", userId);
+
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Пользователь не найден"));
 
@@ -37,6 +42,7 @@ public class UserService {
         userDto.setAchievementsCount(achievementRepository.countAchievementsByUserId(userId));
         userDto.setAwardsCount(awardRepository.countAwardsByUserId(userId));
         userDto.setMostActiveCategory(achievementRepository.findMostActiveCategoryByUserId(userId).orElse(null));
+
         return userDto;
     }
 
@@ -52,6 +58,7 @@ public class UserService {
 
         User savedUser = userRepository.save(user);
         log.info("VK user created/updated successfully with VK ID: {}", vkId);
+
         return userMapper.toDto(savedUser);
     }
 
@@ -59,8 +66,10 @@ public class UserService {
     @Cacheable(value = "users", key = "'vk_' + #vkId")
     public UserDto findByVkId(Long vkId) {
         log.debug("Finding user by VK ID: {}", vkId);
+
         User user = userRepository.findById(vkId)
                 .orElseThrow(() -> new ResourceNotFoundException("Пользователь с VK ID " + vkId + " не найден"));
+
         return userMapper.toDto(user);
     }
 
@@ -74,6 +83,7 @@ public class UserService {
 
     public void createLevel(User user){
         int awardCounter = achievementRepository.countAchievementsByUserId(user.getId());
+
         if (awardCounter <=9){ user.setLevel(1);}
         else if (awardCounter <=19){ user.setLevel(2);}
         else if (awardCounter <=29){ user.setLevel(3);}

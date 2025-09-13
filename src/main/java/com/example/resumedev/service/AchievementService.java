@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Transactional
 public class AchievementService {
+
     private final AchievementRepository achievementRepository;
 
     private final UserRepository userRepository;
@@ -69,7 +70,6 @@ public class AchievementService {
         return achievementMapper.toDto(achievement);
     }
 
-//    @CacheEvict(value = {"achievements", "users"}, allEntries = true)
     public AchievementDto createAchievement(Long userId, AchievementDto achievementDto) {
         log.debug("Creating achievement for user ID: {}", userId);
 
@@ -92,7 +92,6 @@ public class AchievementService {
         return achievementMapper.toDto(achievement);
     }
 
-    @CacheEvict(value = {"achievements", "users"}, allEntries = true)
     public AchievementDto updateAchievement(Long achievementId, Long userId, AchievementDto achievementDto) {
         log.debug("Updating achievement ID: {} for user ID: {}", achievementId, userId);
 

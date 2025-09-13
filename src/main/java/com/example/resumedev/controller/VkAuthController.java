@@ -20,7 +20,9 @@ import java.util.Map;
 @Slf4j
 @Tag(name = "VK Authentication", description = "API для работы с пользователями VK")
 public class VkAuthController {
+
     private final UserService userService;
+
     private final VkApiService vkApiService;
 
     @PostMapping("/vk-user")
@@ -42,6 +44,7 @@ public class VkAuthController {
             return ResponseEntity.ok(user);
         } catch (Exception e) {
             log.error("Failed to create/update VK user", e);
+
             return ResponseEntity.badRequest().build();
         }
     }
@@ -68,11 +71,14 @@ public class VkAuthController {
             @Parameter(description = "VK ID пользователя") @PathVariable Long vkId) {
 
         log.info("Checking if user exists for VK ID: {}", vkId);
+
         try {
             boolean exists = userService.existsByVkId(vkId);
+
             return ResponseEntity.ok(Map.of("exists", exists));
         } catch (Exception e) {
             log.error("Error checking user existence for vkId {}: ", vkId, e);
+
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

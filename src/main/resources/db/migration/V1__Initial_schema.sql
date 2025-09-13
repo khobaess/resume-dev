@@ -30,6 +30,6 @@ CREATE TABLE resumes(
     achievement_id BIGINT NOT NULL REFERENCES achievements(id) ON DELETE CASCADE
 );
 
-CREATE INDEX idx_users_vk_id ON users(id);
+CREATE INDEX idx_users_user_id ON users(id);
 CREATE INDEX idx_achievements_user_id ON achievements(user_id);
 CREATE INDEX idx_awards_user_id ON awards(user_id);

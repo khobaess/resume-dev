@@ -18,6 +18,7 @@ import java.time.Duration;
 public class VkApiService {
 
     private final WebClient webClient;
+
     private final ObjectMapper objectMapper;
 
     @Value("${app.vk.service-token}")
@@ -67,6 +68,7 @@ public class VkApiService {
             }
 
             JsonNode userNode = responseArray.get(0);
+
             return objectMapper.treeToValue(userNode, UserDto.class);
 
         } catch (WebClientResponseException e) {
@@ -81,9 +83,11 @@ public class VkApiService {
     public boolean isValidVkUser(Long vkId) {
         try {
             getUserInfo(vkId);
+
             return true;
         } catch (Exception e) {
             log.warn("Failed to validate VK user: {}", vkId, e);
+
             return false;
         }
     }
