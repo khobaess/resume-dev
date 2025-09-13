@@ -109,7 +109,6 @@ public class AchievementService {
         return achievementMapper.toDto(savedAchievement);
     }
 
-    @CacheEvict(value = {"achievements", "users"}, allEntries = true)
     public void deleteAchievement(Long achievementId, Long userId) {
         log.debug("Deleting achievement ID: {} for user ID: {}", achievementId, userId);
 

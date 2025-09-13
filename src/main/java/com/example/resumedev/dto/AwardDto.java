@@ -8,5 +8,6 @@ import lombok.Data;
 public class AwardDto {
 
     private String title;
+
     private String user_id;
 }

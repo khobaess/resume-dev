@@ -9,7 +9,7 @@ import com.example.resumedev.mapper.ResumeMapper;
 import com.example.resumedev.repository.AchievementRepository;
 import com.example.resumedev.repository.ResumeRepository;
 import com.example.resumedev.repository.UserRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -36,6 +36,7 @@ public class ResumeService {
 
     private final AchievementRepository achievementRepository;
 
+    @Transactional(readOnly = true)
     public ResumeDto getResume(Long id, Long userId, Long achievementId) {
         log.debug("Creating resume for resume ID: {}", id );
 
@@ -45,6 +46,7 @@ public class ResumeService {
         return resumeMapper.toDto(resume);
     }
 
+    @Transactional(readOnly = true)
     public Page<ResumeDto> getResumes(Long userId,  Pageable pageable) {
         log.debug("Getting resumes for user ID: {}", userId );
 
@@ -86,6 +88,7 @@ public class ResumeService {
 
     }
 
+    @Transactional(readOnly = true)
     public String resumeGenerateTxt(Long userId){
 
         final String LINE = "_".repeat(80);

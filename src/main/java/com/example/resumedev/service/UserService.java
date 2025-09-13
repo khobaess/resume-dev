@@ -62,21 +62,11 @@ public class UserService {
         return userMapper.toDto(savedUser);
     }
 
-    @Transactional(readOnly = true)
-    @Cacheable(value = "users", key = "'vk_' + #vkId")
-    public UserDto findByVkId(Long vkId) {
-        log.debug("Finding user by VK ID: {}", vkId);
-
-        User user = userRepository.findById(vkId)
-                .orElseThrow(() -> new ResourceNotFoundException("Пользователь с VK ID " + vkId + " не найден"));
-
-        return userMapper.toDto(user);
-    }
-
     public Optional<Integer> getLevel(Long vkId){
         return userRepository.findLevelById(vkId);
     }
 
+    @Transactional(readOnly = true)
     public boolean existsByVkId(Long vkId) {
         return userRepository.existsById(vkId);
     }

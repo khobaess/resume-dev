@@ -26,6 +26,7 @@ public class AwardService {
 
     private final AchievementRepository achievementRepository;
 
+    @Transactional(readOnly = true)
     public List<AwardDto> getUserAwards(Long userId){
         log.debug("Getting achievements for user ID: {}", userId);
 
