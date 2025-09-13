@@ -137,7 +137,7 @@ public class ResumeService {
             String duration;
 
             if (achievement.getDateStart() == null) {
-                startDate = "не указана";
+                startDate = "";
                 endDate = formatDate(achievement.getDateEnd());;
                 duration = "";
             } else if (achievement.getDateEnd() == null) {
@@ -155,7 +155,9 @@ public class ResumeService {
             String title = achievement.getTitle() != null ? achievement.getTitle().toUpperCase() : "[без названия]";
             String description = achievement.getDescription() != null ? achievement.getDescription() : "[без описания]";
 
-            sb.append(startDate).append(" — ").append(endDate).append("\n\n");
+            if (!startDate.isEmpty()){ sb.append(startDate).append(" — ").append(endDate).append("\n\n");
+            } else { sb.append(endDate).append("\n\n"); }
+
             if (!duration.isEmpty()) {
                 sb.append(duration).append("\n\n");
             }
