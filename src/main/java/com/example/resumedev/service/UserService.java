@@ -7,12 +7,13 @@ import com.example.resumedev.entity.User;
 import com.example.resumedev.repository.AchievementRepository;
 import com.example.resumedev.repository.AwardRepository;
 import com.example.resumedev.repository.UserRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -61,6 +62,24 @@ public class UserService {
         return userMapper.toDto(savedUser);
     }
 
+    public UserDto updateUserProfile(Long userId, UserDto userDto) {
+        log.debug("Updating user profile for user ID: {}", userId);
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Пользователь не найден"));
+
+        user.setCity(userDto.getCity());
+        user.setDescription(userDto.getDescription());
+        user.setBirthDate(userDto.getBirthDate());
+        user.setJobTitle(userDto.getJobTitle());
+
+        User savedUser = userRepository.save(user);
+        log.info("User updated successfully with ID: {}", userId);
+
+        return userMapper.toDto(savedUser);
+    }
+
+    @Transactional(readOnly = true)
     public Optional<Integer> getLevel(Long vkId){
         return userRepository.findLevelById(vkId);
     }

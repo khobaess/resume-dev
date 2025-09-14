@@ -18,9 +18,9 @@ public interface AchievementRepository extends JpaRepository<Achievement, Long> 
     
     Optional<Achievement> findByIdAndUserId(Long id, Long userId);
 
-    @Query("SELECT a.category FROM Achievement a WHERE a.user.id = : id " +
+    @Query("SELECT a.category FROM Achievement a WHERE a.user.id = :userId " +
             "GROUP BY a.category ORDER BY COUNT(a) DESC LIMIT 1")
-    Optional<String> findMostActiveCategoryByUserId(@Param("userId") Long userId);
+    Optional<String> findMostActiveCategoryByUserId(Long userId);
 
     int countAchievementsByUserId(@Param("userId") Long userId);
 

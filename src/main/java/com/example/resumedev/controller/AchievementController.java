@@ -44,7 +44,7 @@ public class AchievementController {
     @GetMapping("/{id}")
     @Operation(summary = "Получить достижение по ID", description = "Возвращает конкретное достижение")
     public ResponseEntity<AchievementDto> getAchievement(
-            @Parameter(description = "ID достижения") @PathVariable Long id,Long userId) {
+            @Parameter(description = "ID достижения") @PathVariable Long id, Long userId) {
 
         log.info("Getting achievement: {} for user: {}", id, userId);
 
@@ -55,7 +55,6 @@ public class AchievementController {
     @PostMapping
     @Operation(summary = "Создать достижение", description = "Создает новое достижение")
     public ResponseEntity<AchievementDto> createAchievement(
-            HttpServletRequest request,
             @Parameter(description = "Данные достижения") @Valid @RequestBody AchievementDto achievementDto) {
 
         log.info("Creating achievement for user: {}", achievementDto.getUser_id());
@@ -68,7 +67,6 @@ public class AchievementController {
     @Operation(summary = "Обновить достижение", description = "Обновляет существующее достижение")
     public ResponseEntity<AchievementDto> updateAchievement(
             @Parameter(description = "ID достижения") @PathVariable Long id,
-            HttpServletRequest request,
             @Parameter(description = "Обновленные данные") @Valid @RequestBody AchievementDto achievementDto) {
 
         log.info("Updating achievement: {} for user: {}", id, achievementDto.getUser_id());

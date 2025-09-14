@@ -17,9 +17,7 @@ public class ResumeMapper {
     public Resume toEntity(ResumeDto dto) {
         if (dto == null) return null;
 
-        Resume resume = new Resume();
-
-        return resume;
+        return new Resume();
     }
 
 }
