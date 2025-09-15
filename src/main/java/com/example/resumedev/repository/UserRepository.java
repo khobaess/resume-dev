@@ -24,6 +24,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u.level FROM User u WHERE u.id = :Id")
     Optional<Integer> findLevelById(@Param("id") Long id);
-
 }
 

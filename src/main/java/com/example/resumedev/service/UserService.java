@@ -7,13 +7,11 @@ import com.example.resumedev.entity.User;
 import com.example.resumedev.repository.AchievementRepository;
 import com.example.resumedev.repository.AwardRepository;
 import com.example.resumedev.repository.UserRepository;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 @Service

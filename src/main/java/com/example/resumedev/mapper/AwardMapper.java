@@ -14,5 +14,4 @@ public class AwardMapper {
         dto.setUser_id(dto.getUser_id());
         return dto;
     }
-
 }

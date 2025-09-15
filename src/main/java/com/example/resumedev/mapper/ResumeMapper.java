@@ -19,5 +19,4 @@ public class ResumeMapper {
 
         return new Resume();
     }
-
 }

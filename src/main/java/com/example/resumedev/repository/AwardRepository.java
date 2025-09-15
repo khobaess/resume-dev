@@ -17,5 +17,4 @@ public interface AwardRepository extends JpaRepository<Award, Long> {
     void deleteByTitleAndUserId(String title, @Param("id") Long userId);
 
     List<Award> id(Long id);
-
 }

@@ -10,5 +10,4 @@ public class ResumeDto {
     private Long user_id;
 
     private Long achievement_id;
-
 }

@@ -11,7 +11,6 @@ import com.example.resumedev.repository.AwardRepository;
 import com.example.resumedev.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -138,5 +137,4 @@ public class AchievementService {
     public int getUserAchievementsCount(Long userId) {
         return achievementRepository.countAchievementsByUserId(userId);
     }
-
 }
