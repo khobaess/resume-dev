@@ -13,7 +13,7 @@ public class AwardMapper {
 
         AwardDto dto = new AwardDto();
         dto.setTitle(award.getTitle());
-        dto.setUser_id(dto.getUser_id());
+        dto.setUserId(dto.getUserId());
         return dto;
     }
 }
