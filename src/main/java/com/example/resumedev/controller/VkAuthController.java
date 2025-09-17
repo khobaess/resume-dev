@@ -1,8 +1,8 @@
 package com.example.resumedev.controller;
 
 import com.example.resumedev.dto.UserDto;
-import com.example.resumedev.service.impl.UserService;
-import com.example.resumedev.service.impl.VkApiService;
+import com.example.resumedev.service.impl.UserServiceImpl;
+import com.example.resumedev.service.impl.VkApiServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,15 +20,15 @@ import java.util.Map;
 @Tag(name = "VK Authentication", description = "API для работы с пользователями VK")
 public class VkAuthController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
-    private final VkApiService vkApiService;
+    private final VkApiServiceImpl vkApiServiceImpl;
 
     @Autowired
-    public VkAuthController(UserService userService, VkApiService vkApiService) {
+    public VkAuthController(UserServiceImpl userService, VkApiServiceImpl vkApiServiceImpl) {
 
         this.userService = userService;
-        this.vkApiService = vkApiService;
+        this.vkApiServiceImpl = vkApiServiceImpl;
     }
 
     @PostMapping("/vk-user")
@@ -39,7 +39,7 @@ public class VkAuthController {
         try {
             Long vkId = userDto.getId();
 
-            if (!vkApiService.isValidVkUser(vkId)) {
+            if (!vkApiServiceImpl.isValidVkUser(vkId)) {
                 return ResponseEntity.badRequest().build();
             }
 

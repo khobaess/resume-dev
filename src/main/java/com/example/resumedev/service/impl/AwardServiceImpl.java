@@ -6,6 +6,7 @@ import com.example.resumedev.entity.Award;
 import com.example.resumedev.entity.User;
 import com.example.resumedev.repository.AchievementRepository;
 import com.example.resumedev.repository.AwardRepository;
+import com.example.resumedev.service.AwardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 @Transactional
-public class AwardService {
+public class AwardServiceImpl implements AwardService {
 
     private final AwardRepository awardRepository;
 

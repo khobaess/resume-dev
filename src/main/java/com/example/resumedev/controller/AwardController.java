@@ -2,8 +2,8 @@ package com.example.resumedev.controller;
 
 import com.example.resumedev.dto.AwardDto;
 import com.example.resumedev.dto.UserDto;
-import com.example.resumedev.service.impl.AwardService;
-import com.example.resumedev.service.impl.UserService;
+import com.example.resumedev.service.impl.AwardServiceImpl;
+import com.example.resumedev.service.impl.UserServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,9 +23,9 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:5173")
 public class AwardController {
 
-    private final AwardService awardService;
+    private final AwardServiceImpl awardServiceImpl;
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     @GetMapping
     @Operation(summary = "Получить награды", description = "Возвращает список наград")
@@ -35,7 +35,7 @@ public class AwardController {
 
         log.info("Getting awards for user: {}", userId);
 
-        List<AwardDto> awards = awardService.getUserAwards(userId);
+        List<AwardDto> awards = awardServiceImpl.getUserAwards(userId);
         return ResponseEntity.ok(awards);
     }
 

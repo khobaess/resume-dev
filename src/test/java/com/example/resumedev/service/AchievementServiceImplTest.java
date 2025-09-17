@@ -10,8 +10,8 @@ import com.example.resumedev.repository.AchievementRepository;
 import com.example.resumedev.repository.AwardRepository;
 import com.example.resumedev.repository.UserRepository;
 import com.example.resumedev.service.impl.AchievementServiceImpl;
-import com.example.resumedev.service.impl.AwardService;
-import com.example.resumedev.service.impl.UserService;
+import com.example.resumedev.service.impl.AwardServiceImpl;
+import com.example.resumedev.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -41,10 +41,10 @@ public class AchievementServiceImplTest {
     private AwardRepository awardRepository;
 
     @Mock
-    private AwardService awardService;
+    private AwardServiceImpl awardServiceImpl;
 
     @Mock
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @InjectMocks
     private AchievementServiceImpl achievementServiceImpl;
@@ -136,7 +136,7 @@ public class AchievementServiceImplTest {
         award.setId(awardId);
         award.setUser(user);
         award.setTitle("Награда за первое достижение");
-        when(awardService.getAward(user)).thenReturn(award);
+        when(awardServiceImpl.getAward(user)).thenReturn(award);
         when(awardRepository.save(any(Award.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
@@ -149,7 +149,7 @@ public class AchievementServiceImplTest {
         verify(achievementMapper).toEntity(dto);
         verify(achievementRepository).save(achievement);
         verify(userService).createLevel(user);
-        verify(awardService).getAward(user);
+        verify(awardServiceImpl).getAward(user);
         verify(awardRepository).save(award);
     }
 }

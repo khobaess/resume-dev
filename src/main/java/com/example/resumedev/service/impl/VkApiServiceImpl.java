@@ -2,6 +2,7 @@ package com.example.resumedev.service.impl;
 
 import com.example.resumedev.dto.UserDto;
 import com.example.resumedev.exception.VkConnectionException;
+import com.example.resumedev.service.VkApiService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +16,7 @@ import java.time.Duration;
 
 @Service
 @Slf4j
-public class VkApiService {
+public class VkApiServiceImpl implements VkApiService {
 
     private final WebClient webClient;
 
@@ -30,7 +31,7 @@ public class VkApiService {
     @Value("${app.vk.api-version}")
     private String API_VERSION;
 
-    public VkApiService(WebClient.Builder webClientBuilder, ObjectMapper objectMapper) {
+    public VkApiServiceImpl(WebClient.Builder webClientBuilder, ObjectMapper objectMapper) {
 
         this.webClient = webClientBuilder
                 .baseUrl(VK_API_URL)

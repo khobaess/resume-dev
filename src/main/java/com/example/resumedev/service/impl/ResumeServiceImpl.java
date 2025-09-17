@@ -9,6 +9,7 @@ import com.example.resumedev.mapper.ResumeMapper;
 import com.example.resumedev.repository.AchievementRepository;
 import com.example.resumedev.repository.ResumeRepository;
 import com.example.resumedev.repository.UserRepository;
+import com.example.resumedev.service.ResumeService;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,7 @@ import java.util.Locale;
 @Slf4j
 @Transactional
 @RequiredArgsConstructor
-public class ResumeService {
+public class ResumeServiceImpl implements ResumeService {
 
     private final ResumeMapper resumeMapper;
 

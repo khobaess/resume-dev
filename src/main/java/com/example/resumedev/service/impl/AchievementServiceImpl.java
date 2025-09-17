@@ -31,9 +31,9 @@ public class AchievementServiceImpl implements AchievementService {
 
     private final AwardRepository awardRepository;
 
-    private final AwardService awardService;
+    private final AwardServiceImpl awardServiceImpl;
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     @Transactional(readOnly = true)
     public Page<AchievementDto> getUserAchievements(
@@ -90,7 +90,7 @@ public class AchievementServiceImpl implements AchievementService {
         achievementRepository.save(achievement);
         userService.createLevel(user);
 
-        Award award = awardService.getAward(user);
+        Award award = awardServiceImpl.getAward(user);
         if (award != null) {
             awardRepository.save(award);
             log.info("Award granted: {} for user ID: {}", award.getTitle(), userId);

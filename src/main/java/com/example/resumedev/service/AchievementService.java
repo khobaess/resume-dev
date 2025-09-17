@@ -11,4 +11,18 @@ public interface AchievementService {
         String description,
         Pageable pageable
     );
+
+    AchievementDto getAchievement(Long achievementId, Long userId);
+
+    AchievementDto createAchievement(Long userId, AchievementDto achievementDto);
+
+    AchievementDto updateAchievement(
+            Long achievementId,
+            Long userId,
+            AchievementDto achievementDto
+    );
+
+    void deleteAchievement(Long achievementId, Long userId);
+
+    int getUserAchievementsCount(Long userId);
 }

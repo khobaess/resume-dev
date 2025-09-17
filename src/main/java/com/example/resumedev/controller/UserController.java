@@ -1,7 +1,7 @@
 package com.example.resumedev.controller;
 
 import com.example.resumedev.dto.UserDto;
-import com.example.resumedev.service.impl.UserService;
+import com.example.resumedev.service.impl.UserServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://localhost:5173")
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     @GetMapping()
     @Operation(summary = "Получить пользователя", description = "Получает пользователя")
