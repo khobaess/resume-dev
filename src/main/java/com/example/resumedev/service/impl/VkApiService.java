@@ -1,4 +1,4 @@
-package com.example.resumedev.service;
+package com.example.resumedev.service.impl;
 
 import com.example.resumedev.dto.UserDto;
 import com.example.resumedev.exception.VkConnectionException;
@@ -31,6 +31,7 @@ public class VkApiService {
     private String API_VERSION;
 
     public VkApiService(WebClient.Builder webClientBuilder, ObjectMapper objectMapper) {
+
         this.webClient = webClientBuilder
                 .baseUrl(VK_API_URL)
                 .build();
@@ -38,6 +39,7 @@ public class VkApiService {
     }
 
     public UserDto getUserInfo(Long userId) {
+
         log.debug("Getting VK user info for user ID: {}", userId);
 
         try {
@@ -72,9 +74,12 @@ public class VkApiService {
             return objectMapper.treeToValue(userNode, UserDto.class);
 
         } catch (WebClientResponseException e) {
+
             log.error("HTTP error calling VK API: {}, body: {}", e.getStatusCode(), e.getResponseBodyAsString());
             throw new VkConnectionException("VK API call failed", e);
+
         } catch (Exception e) {
+
             log.error("Error calling VK API", e);
             throw new VkConnectionException("VK API call failed", e);
         }
@@ -86,6 +91,7 @@ public class VkApiService {
 
             return true;
         } catch (Exception e) {
+
             log.warn("Failed to validate VK user: {}", vkId, e);
 
             return false;

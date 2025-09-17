@@ -12,17 +12,22 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<User> findById(Long id);
+    Optional<User> findById(
+            Long userId);
 
-    boolean existsById(Long id);
+    boolean existsById(
+            Long userIid);
 
     @Query("SELECT u FROM User u LEFT JOIN FETCH u.achievements WHERE u.id = :id")
-    Optional<User> findByIdWithAchievements(@Param("id") Long id);
+    Optional<User> findByIdWithAchievements(
+            @Param("id") Long id);
 
     @Query("SELECT u FROM User u LEFT JOIN FETCH u.awards WHERE u.id = :id")
-    Optional<User> findByIdWithAwards(@Param("id") Long id);
+    Optional<User> findByIdWithAwards(
+            @Param("id") Long id);
 
     @Query("SELECT u.level FROM User u WHERE u.id = :Id")
-    Optional<Integer> findLevelById(@Param("id") Long id);
+    Optional<Integer> findLevelById(
+            @Param("id") Long id);
 }
 

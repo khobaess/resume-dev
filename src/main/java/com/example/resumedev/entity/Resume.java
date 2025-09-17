@@ -3,11 +3,8 @@ package com.example.resumedev.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@Getter
 @Entity
 @Table(name = "resumes")
 @Data
@@ -16,7 +13,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter
     @Column(name = "id")
     private Long id;
 

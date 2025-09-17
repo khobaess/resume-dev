@@ -1,6 +1,7 @@
 package com.example.resumedev.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
@@ -9,5 +10,6 @@ public class AwardDto {
 
     private String title;
 
-    private String user_id;
+    @JsonProperty("user_id")
+    private String userId;
 }

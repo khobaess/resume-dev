@@ -2,8 +2,8 @@ package com.example.resumedev.controller;
 
 import com.example.resumedev.dto.AwardDto;
 import com.example.resumedev.dto.UserDto;
-import com.example.resumedev.service.AwardService;
-import com.example.resumedev.service.UserService;
+import com.example.resumedev.service.impl.AwardService;
+import com.example.resumedev.service.impl.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -30,7 +30,8 @@ public class AwardController {
     @GetMapping
     @Operation(summary = "Получить награды", description = "Возвращает список наград")
     public ResponseEntity<List<AwardDto>> getAwards(
-            @Parameter(description = "Айди пользователя") @RequestParam(required = false) Long userId){
+            @Parameter(description = "Айди пользователя") @RequestParam(required = false) Long userId
+    ){
 
         log.info("Getting awards for user: {}", userId);
 
@@ -41,7 +42,8 @@ public class AwardController {
     @GetMapping("/level")
     @Operation(summary = "Получить уровень", description = "Возвращает уровень")
     public ResponseEntity<Optional<Integer>> getLevel(
-            @Parameter(description = "Айди пользователя") @RequestParam(required = false) Long userId){
+            @Parameter(description = "Айди пользователя") @RequestParam(required = false) Long userId
+    ){
 
         log.info("Getting level for user: {}", userId);
 
@@ -52,7 +54,8 @@ public class AwardController {
     @GetMapping("/stats")
     @Operation(summary = "Получить статистику", description = "Возвращает статистику")
     public ResponseEntity<UserDto> getStats(
-            @Parameter(description = "Айди пользователя") @RequestParam(required = false) Long userId){
+            @Parameter(description = "Айди пользователя") @RequestParam(required = false) Long userId
+    ){
 
         log.info("Getting stats for user: {}", userId);
 

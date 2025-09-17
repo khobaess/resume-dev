@@ -1,4 +1,4 @@
-package com.example.resumedev.service;
+package com.example.resumedev.service.impl;
 
 import com.example.resumedev.dto.AwardDto;
 import com.example.resumedev.mapper.AwardMapper;
@@ -27,18 +27,21 @@ public class AwardService {
     private final AchievementRepository achievementRepository;
 
     @Transactional(readOnly = true)
-    public List<AwardDto> getUserAwards(Long userId){
+    public List<AwardDto> getUserAwards(Long userId) {
+
         log.debug("Getting achievements for user ID: {}", userId);
 
         List<Award> awards = awardRepository.getByUserId(userId);
         return awards.stream().map(awardMapper::toDto).collect(Collectors.toList());
     }
 
-    public Award getAward(User user){
+    public Award getAward(User user) {
 
         int awardCounter = achievementRepository.countAchievementsByUserId(user.getId());
+
         Award award = new Award();
         award.setUser(user);
+
         switch (awardCounter){
             case 1:
                 award.setTitle("Награда за первое добавленное достижение");

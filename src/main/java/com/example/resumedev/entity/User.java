@@ -18,39 +18,24 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @EntityListeners(AuditingEntityListener.class)
 public class User {
-    @Getter
     @Id
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @Getter
-    @Setter
     @NotNull
     private String firstName;
 
-    @Getter
-    @Setter
     @NotNull
     private String lastName;
 
-    @Getter
-    @Setter
     private int level;
 
-    @Getter
-    @Setter
     private String description;
 
-    @Getter
-    @Setter
     private LocalDate birthDate;
 
-    @Getter
-    @Setter
     private String city;
 
-    @Getter
-    @Setter
     private String jobTitle;
 
 

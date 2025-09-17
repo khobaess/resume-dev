@@ -13,16 +13,21 @@ import java.util.Optional;
 @Repository
 public interface AchievementRepository extends JpaRepository<Achievement, Long> {
 
-    Page<Achievement> findByUserIdOrderByDateEndDesc(@Param("userId") Long userId,
-                                                  Pageable pageable);
-    
-    Optional<Achievement> findByIdAndUserId(Long id, Long userId);
+    Page<Achievement> findByUserIdOrderByDateEndDesc(
+            @Param("userId") Long userId,
+            Pageable pageable);
+
+    Optional<Achievement> findByIdAndUserId(
+            Long id,
+            Long userId);
 
     @Query("SELECT a.category FROM Achievement a WHERE a.user.id = :userId " +
             "GROUP BY a.category ORDER BY COUNT(a) DESC LIMIT 1")
-    Optional<String> findMostActiveCategoryByUserId(Long userId);
+    Optional<String> findMostActiveCategoryByUserId(
+            Long userId);
 
-    int countAchievementsByUserId(@Param("userId") Long userId);
+    int countAchievementsByUserId(
+            @Param("userId") Long userId);
 
     Page<Achievement> findByUserIdAndCategoryOrderByDateEndDesc(
             @Param("userId") Long userId,
@@ -37,8 +42,9 @@ public interface AchievementRepository extends JpaRepository<Achievement, Long> 
             Pageable pageable
     );
 
-    Page<Achievement> getAchievementByUserIdAndDescriptionContainsOrderByDateEndDesc(@Param("userId") Long userId,
-                                              @Param("description") String description,
-                                                           Pageable pageable);
+    Page<Achievement> getAchievementByUserIdAndDescriptionContainsOrderByDateEndDesc(
+            @Param("userId") Long userId,
+            @Param("description") String description,
+            Pageable pageable);
 
 }

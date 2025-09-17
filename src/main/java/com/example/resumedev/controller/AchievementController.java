@@ -1,7 +1,7 @@
 package com.example.resumedev.controller;
 
 import com.example.resumedev.dto.AchievementDto;
-import com.example.resumedev.service.AchievementService;
+import com.example.resumedev.service.impl.AchievementServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,43 +22,46 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Achievements", description = "API для работы с достижениями")
 @CrossOrigin(origins = "http://localhost:5173")
 public class AchievementController {
-    private final AchievementService achievementService;
+    private final AchievementServiceImpl achievementServiceImpl;
 
     @GetMapping
     @Operation(summary = "Получить достижения пользователя", description = "Возвращает список достижений с фильтрацией")
     public ResponseEntity<Page<AchievementDto>> getAchievements(
-            @Parameter(description = "Айди пользователя") @RequestParam(required = false) Long userId,
-            @Parameter(description = "Категория") @RequestParam(required = false) String category,
-            @Parameter(description = "Поиск по слову") @RequestParam(required = false) String description,
-            @Parameter(description = "Номер страницы") @RequestParam(defaultValue = "0") int page,
-            @Parameter(description = "Размер страницы") @RequestParam(defaultValue = "10") int size){
+        @Parameter(description = "Айди пользователя") @RequestParam(required = false) Long userId,
+        @Parameter(description = "Категория") @RequestParam(required = false) String category,
+        @Parameter(description = "Поиск по слову") @RequestParam(required = false) String description,
+        @Parameter(description = "Номер страницы") @RequestParam(defaultValue = "0") int page,
+        @Parameter(description = "Размер страницы") @RequestParam(defaultValue = "10") int size
+    ) {
 
         log.info("Getting achievements for user: {}, category: {}", userId, category);
 
         Pageable pageable = PageRequest.of(page, size);
-        Page<AchievementDto> achievements = achievementService.getUserAchievements(userId, category, description, pageable);
+        Page<AchievementDto> achievements = achievementServiceImpl.getUserAchievements(userId, category, description, pageable);
         return ResponseEntity.ok(achievements);
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Получить достижение по ID", description = "Возвращает конкретное достижение")
     public ResponseEntity<AchievementDto> getAchievement(
-            @Parameter(description = "ID достижения") @PathVariable Long id, Long userId) {
+            @Parameter(description = "ID достижения") @PathVariable Long id, Long userId
+    ) {
 
         log.info("Getting achievement: {} for user: {}", id, userId);
 
-        AchievementDto achievement = achievementService.getAchievement(id, userId);
+        AchievementDto achievement = achievementServiceImpl.getAchievement(id, userId);
         return ResponseEntity.ok(achievement);
     }
 
     @PostMapping
     @Operation(summary = "Создать достижение", description = "Создает новое достижение")
     public ResponseEntity<AchievementDto> createAchievement(
-            @Parameter(description = "Данные достижения") @Valid @RequestBody AchievementDto achievementDto) {
+            @Parameter(description = "Данные достижения") @Valid @RequestBody AchievementDto achievementDto
+    ) {
 
-        log.info("Creating achievement for user: {}", achievementDto.getUser_id());
+        log.info("Creating achievement for user: {}", achievementDto.getUserId());
 
-        AchievementDto createdAchievement = achievementService.createAchievement(achievementDto.getUser_id(), achievementDto);
+        AchievementDto createdAchievement = achievementServiceImpl.createAchievement(achievementDto.getUserId(), achievementDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdAchievement);
     }
 
@@ -68,9 +71,9 @@ public class AchievementController {
             @Parameter(description = "ID достижения") @PathVariable Long id,
             @Parameter(description = "Обновленные данные") @Valid @RequestBody AchievementDto achievementDto) {
 
-        log.info("Updating achievement: {} for user: {}", id, achievementDto.getUser_id());
+        log.info("Updating achievement: {} for user: {}", id, achievementDto.getUserId());
 
-        AchievementDto updatedAchievement = achievementService.updateAchievement(id, achievementDto.getUser_id(), achievementDto);
+        AchievementDto updatedAchievement = achievementServiceImpl.updateAchievement(id, achievementDto.getUserId(), achievementDto);
         return ResponseEntity.ok(updatedAchievement);
     }
 
@@ -78,11 +81,12 @@ public class AchievementController {
     @Operation(summary = "Удалить достижение", description = "Удаляет достижение")
     public ResponseEntity<Void> deleteAchievement(
             @Parameter(description = "ID достижения") @PathVariable Long id,
-          Long userId ) {
+          Long userId
+    ) {
 
         log.info("Deleting achievement: {} for user: {}", id, userId);
 
-        achievementService.deleteAchievement(id, userId);
+        achievementServiceImpl.deleteAchievement(id, userId);
         return ResponseEntity.noContent().build();
     }
 
@@ -91,7 +95,7 @@ public class AchievementController {
     public ResponseEntity<Integer> getAchievementsCount(Long userId) {
         log.info("Getting achievements count for user: {}", userId);
 
-        int count = achievementService.getUserAchievementsCount(userId);
+        int count = achievementServiceImpl.getUserAchievementsCount(userId);
         return ResponseEntity.ok(count);
     }
 }

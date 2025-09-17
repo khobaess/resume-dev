@@ -6,7 +6,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AwardMapper {
-    public AwardDto toDto(Award award) {
+    public AwardDto toDto(
+            Award award
+    ) {
         if (award == null) return null;
 
         AwardDto dto = new AwardDto();

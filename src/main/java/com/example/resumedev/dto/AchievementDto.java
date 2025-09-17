@@ -31,5 +31,6 @@ public class AchievementDto {
     @NotBlank(message = "Описание обязательно")
     private String description;
 
-    private Long user_id;
+    @JsonProperty("user_id")
+    private Long userId;
 }

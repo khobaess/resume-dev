@@ -1,4 +1,4 @@
-package com.example.resumedev.service;
+package com.example.resumedev.service.impl;
 
 import com.example.resumedev.dto.ResumeDto;
 import com.example.resumedev.entity.Achievement;
@@ -37,7 +37,12 @@ public class ResumeService {
     private final AchievementRepository achievementRepository;
 
     @Transactional(readOnly = true)
-    public ResumeDto getResume(Long id, Long userId, Long achievementId) {
+    public ResumeDto getResume(
+            Long id,
+            Long userId,
+            Long achievementId
+    ) {
+
         log.debug("Creating resume for resume ID: {}", id );
 
         Resume resume = resumeRepository.findByIdAndUserIdAndAchievementId(id, userId, achievementId)
@@ -47,7 +52,8 @@ public class ResumeService {
     }
 
     @Transactional(readOnly = true)
-    public Page<ResumeDto> getResumes(Long userId,  Pageable pageable) {
+    public Page<ResumeDto> getResumes(Long userId, Pageable pageable) {
+
         log.debug("Getting resumes for user ID: {}", userId );
 
         Page<Resume> resumes;
@@ -57,7 +63,12 @@ public class ResumeService {
     }
 
     @Transactional
-    public ResumeDto createResume(Long userId, Long achievementId, ResumeDto resumeDto) {
+    public ResumeDto createResume(
+            Long userId,
+            Long achievementId,
+            ResumeDto resumeDto
+    ) {
+
         log.debug("Creating achievement for user ID: {}", userId);
 
         User user = userRepository.findById(userId)
@@ -76,7 +87,12 @@ public class ResumeService {
         return resumeMapper.toDto(resume);
     }
 
-    public void deleteResume(Long id, Long userId, Long achievementId) {
+    public void deleteResume(
+            Long id,
+            Long userId,
+            Long achievementId
+    ) {
+
         log.debug("Deleting achievement for user ID: {}", id);
 
         Resume resume = resumeRepository.findByIdAndUserIdAndAchievementId(id, userId, achievementId)
@@ -114,7 +130,6 @@ public class ResumeService {
         sb.append(user.getJobTitle() != null ? "Желаемая должность: " + user.getJobTitle() : "").append("\n\n");
 
         sb.append(user.getDescription() != null ? "О себе: " + user.getDescription() : "").append("\n\n");
-
 
         long totalDays = 0;
         for (Resume resume : resumes) {
@@ -180,11 +195,13 @@ public class ResumeService {
     }
 
     private String formatDate(LocalDate date) {
+
         if (date == null) return "не указана";
         return date.format(DateTimeFormatter.ofPattern("d MMMM yyyy", new Locale("ru")));
     }
 
     private String formatMonthString(int months) {
+
         if (months <= 0) return "";
 
         int lastDigit = months % 10;
@@ -200,6 +217,7 @@ public class ResumeService {
     }
 
     private String formatTotalExperience(long totalDays) {
+
         if (totalDays <= 0) return "0 месяцев";
 
         int totalMonths = (int) Math.round(totalDays / 30.44);

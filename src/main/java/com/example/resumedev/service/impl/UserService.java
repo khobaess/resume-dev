@@ -1,4 +1,4 @@
-package com.example.resumedev.service;
+package com.example.resumedev.service.impl;
 
 import com.example.resumedev.dto.UserDto;
 import com.example.resumedev.exception.ResourceNotFoundException;
@@ -29,7 +29,9 @@ public class UserService {
     private final UserMapper userMapper;
 
     @Transactional(readOnly = true)
-    public UserDto getUserProfile(Long userId) {
+    public UserDto getUserProfile(Long userId
+    ) {
+
         log.debug("Getting user profile for user ID: {}", userId);
 
         User user = userRepository.findById(userId)
@@ -44,7 +46,12 @@ public class UserService {
         return userDto;
     }
 
-    public UserDto createOrUpdateVkUser(Long vkId, String firstName, String lastName) {
+    public UserDto createOrUpdateVkUser(
+            Long vkId,
+            String firstName,
+            String lastName
+    ) {
+
         log.debug("Creating or updating VK user with VK ID: {}", vkId);
 
         User user = userRepository.findById(vkId).orElse(new User());
@@ -60,7 +67,9 @@ public class UserService {
         return userMapper.toDto(savedUser);
     }
 
-    public UserDto updateUserProfile(Long userId, UserDto userDto) {
+    public UserDto updateUserProfile(Long userId, UserDto userDto
+    ) {
+
         log.debug("Updating user profile for user ID: {}", userId);
 
         User user = userRepository.findById(userId)
@@ -78,16 +87,19 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<Integer> getLevel(Long vkId){
+    public Optional<Integer> getLevel(Long vkId) {
+
         return userRepository.findLevelById(vkId);
     }
 
     @Transactional(readOnly = true)
     public boolean existsByVkId(Long vkId) {
+
         return userRepository.existsById(vkId);
     }
 
-    public void createLevel(User user){
+    public void createLevel(User user) {
+
         int awardCounter = achievementRepository.countAchievementsByUserId(user.getId());
 
         if (awardCounter <=9){ user.setLevel(1);}

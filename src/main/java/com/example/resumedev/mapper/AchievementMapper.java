@@ -7,7 +7,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class AchievementMapper {
 
-    public AchievementDto toDto(Achievement achievement) {
+    public AchievementDto toDto(
+            Achievement achievement
+    ) {
         if (achievement == null) return null;
 
         AchievementDto dto = new AchievementDto();
@@ -16,11 +18,13 @@ public class AchievementMapper {
         dto.setDateStart(achievement.getDateStart());
         dto.setDateEnd(achievement.getDateEnd());
         dto.setDescription(achievement.getDescription());
-        dto.setUser_id(dto.getUser_id());
+        dto.setUserId(dto.getUserId());
         return dto;
     }
 
-    public Achievement toEntity(AchievementDto dto) {
+    public Achievement toEntity(
+            AchievementDto dto
+    ) {
         if (dto == null) return null;
 
         Achievement achievement = new Achievement();

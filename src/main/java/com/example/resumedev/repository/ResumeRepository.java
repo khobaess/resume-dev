@@ -12,10 +12,15 @@ import java.util.Optional;
 @Repository
 public interface ResumeRepository extends JpaRepository<Resume, Long> {
 
-    Optional<Resume> findByIdAndUserIdAndAchievementId(Long id,
-            Long userId, Long achievementId);
+    Optional<Resume> findByIdAndUserIdAndAchievementId(
+            Long id,
+            Long userId,
+            Long achievementId);
 
-    Page<Resume> findByUserId(Long userId, Pageable pageable);
+    Page<Resume> findByUserId(
+            Long userId,
+            Pageable pageable);
 
-    List<Resume> findByUserId(Long userId);
+    List<Resume> findByUserId(
+            Long userId);
 }

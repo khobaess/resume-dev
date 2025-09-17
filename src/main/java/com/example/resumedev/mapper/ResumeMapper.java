@@ -6,15 +6,19 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ResumeMapper {
-    public ResumeDto toDto(Resume resume) {
+    public ResumeDto toDto(
+            Resume resume
+    ) {
         ResumeDto dto = new ResumeDto();
-        dto.setUser_id(dto.getUser_id());
-        dto.setAchievement_id(dto.getAchievement_id());
+        dto.setUserId(dto.getUserId());
+        dto.setAchievementId(dto.getAchievementId());
 
         return dto;
     }
 
-    public Resume toEntity(ResumeDto dto) {
+    public Resume toEntity(
+            ResumeDto dto
+    ) {
         if (dto == null) return null;
 
         return new Resume();

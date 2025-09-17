@@ -1,7 +1,7 @@
 package com.example.resumedev.controller;
 
 import com.example.resumedev.dto.ResumeDto;
-import com.example.resumedev.service.ResumeService;
+import com.example.resumedev.service.impl.ResumeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -52,7 +52,10 @@ public class ResumeController {
 
     @GetMapping
     @Operation(summary = "Получить все резюме пользователя", description = "Возвращает список резюме")
-    public ResponseEntity<Page<ResumeDto>> getResumes(Long userId, Pageable pageable) {
+    public ResponseEntity<Page<ResumeDto>> getResumes(
+            Long userId, Pageable pageable
+    ) {
+
         log.info("Getting resume for user: {}", userId);
 
         return ResponseEntity.ok(resumeService.getResumes(userId,  pageable));
@@ -61,8 +64,9 @@ public class ResumeController {
     @GetMapping("/{id}")
     @Operation(summary = "Получить резюме по ID", description = "Возвращает конкретное резюме")
     public ResponseEntity<ResumeDto> getResume(
-            @Parameter(description = "ID резюме") @PathVariable Long id, Long userId, Long achievementId)
-    {
+            @Parameter(description = "ID резюме") @PathVariable Long id, Long userId, Long achievementId
+    ) {
+
         log.info("Getting resume: {} for user: {}", id, userId);
 
         ResumeDto resume = resumeService.getResume(id, userId, achievementId);
@@ -72,11 +76,13 @@ public class ResumeController {
 
     @PostMapping
     @Operation(summary = "Создать резюме", description = "Создает новое резюме")
-    public ResponseEntity<ResumeDto> createResume( @Valid @RequestBody ResumeDto resumeDto) {
+    public ResponseEntity<ResumeDto> createResume(
+            @Valid @RequestBody ResumeDto resumeDto
+    ) {
 
-        log.info("Creating achievement for user: {}", resumeDto.getUser_id());
+        log.info("Creating achievement for user: {}", resumeDto.getUserId());
 
-        ResumeDto createdResume = resumeService.createResume(resumeDto.getUser_id(), resumeDto.getAchievement_id(), resumeDto);
+        ResumeDto createdResume = resumeService.createResume(resumeDto.getUserId(), resumeDto.getAchievementId(), resumeDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdResume);
     }
 
@@ -84,7 +90,8 @@ public class ResumeController {
     @Operation(summary = "Удалить резюме", description = "Удаляет резюме")
     public ResponseEntity<Void> deleteResume(
             @Parameter(description = "ID достижения") @PathVariable Long id,
-            Long userId, Long achievementId ) {
+            Long userId, Long achievementId
+    ) {
 
         log.info("Deleting achievement: {} for user: {} for achievement: {}", id, userId,  achievementId);
 

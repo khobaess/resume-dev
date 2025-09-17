@@ -10,11 +10,15 @@ import java.util.List;
 @Repository
 public interface AwardRepository extends JpaRepository<Award, Long> {
 
-    Long countAwardsByUserId(@Param("userId") Long userId);
+    Long countAwardsByUserId(
+            @Param("userId") Long userId);
 
-    List<Award> getByUserId(@Param("userId") Long userId);
+    List<Award> getByUserId(
+            @Param("userId") Long userId);
 
-    void deleteByTitleAndUserId(String title, @Param("id") Long userId);
+    void deleteByTitleAndUserId(
+            String title, @Param("id") Long userId);
 
-    List<Award> id(Long id);
+    List<Award> id(
+            Long id);
 }

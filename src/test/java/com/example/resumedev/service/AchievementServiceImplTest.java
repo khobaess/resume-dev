@@ -9,6 +9,9 @@ import com.example.resumedev.mapper.AchievementMapper;
 import com.example.resumedev.repository.AchievementRepository;
 import com.example.resumedev.repository.AwardRepository;
 import com.example.resumedev.repository.UserRepository;
+import com.example.resumedev.service.impl.AchievementServiceImpl;
+import com.example.resumedev.service.impl.AwardService;
+import com.example.resumedev.service.impl.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class AchievementServiceTest {
+public class AchievementServiceImplTest {
 
     @Mock
     private AchievementRepository achievementRepository;
@@ -44,7 +47,7 @@ public class AchievementServiceTest {
     private UserService userService;
 
     @InjectMocks
-    private AchievementService achievementService;
+    private AchievementServiceImpl achievementServiceImpl;
 
     @Test
     void getAchievement_ShouldReturnDto_WhenAchievementExists() {
@@ -64,7 +67,7 @@ public class AchievementServiceTest {
         mockDto.setTitle("Тестовое достижение");
         when(achievementMapper.toDto(mockAchievement)).thenReturn(mockDto);
 
-        AchievementDto result = achievementService.getAchievement(achievementId, userId);
+        AchievementDto result = achievementServiceImpl.getAchievement(achievementId, userId);
 
         assertNotNull(result);
         assertEquals("Тестовое достижение", result.getTitle());
@@ -83,7 +86,7 @@ public class AchievementServiceTest {
 
         ResourceNotFoundException exception = assertThrows(
                 ResourceNotFoundException.class,
-                () -> achievementService.getAchievement(achievementId, userId)
+                () -> achievementServiceImpl.getAchievement(achievementId, userId)
         );
 
         assertEquals("Достижение не найдено", exception.getMessage());
@@ -97,7 +100,7 @@ public class AchievementServiceTest {
         Long userId = 1L;
         Long achievementId = 1L;
         Long awardId = 1L;
-        LocalDate now =  LocalDate.now();
+        LocalDate now = LocalDate.now();
 
         AchievementDto dto = new AchievementDto();
         dto.setTitle("Новое достижение");
@@ -105,7 +108,7 @@ public class AchievementServiceTest {
         dto.setDateStart(now);
         dto.setDateEnd(now);
         dto.setDescription("description");
-        dto.setUser_id(userId);
+        dto.setUserId(userId);
 
         User user = new User();
         user.setId(userId);
@@ -137,7 +140,7 @@ public class AchievementServiceTest {
         when(awardRepository.save(any(Award.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
-        AchievementDto result = achievementService.createAchievement(userId, dto);
+        AchievementDto result = achievementServiceImpl.createAchievement(userId, dto);
 
         assertNotNull(result);
         assertEquals("Новое достижение", result.getTitle());
@@ -149,5 +152,4 @@ public class AchievementServiceTest {
         verify(awardService).getAward(user);
         verify(awardRepository).save(award);
     }
-
 }
